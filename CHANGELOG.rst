@@ -2,6 +2,9 @@
 Changelog for package marvelmind_nav
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+
 1.0.3 (2016-09-13)
 ------------------
 * initial commit
