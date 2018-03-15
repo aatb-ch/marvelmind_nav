@@ -1,5 +1,8 @@
 Changelog for package marvelmind_nav
 
+Forthcoming
+-----------
+
 1.0.7 (2018-03-13)
 ------------------
 
