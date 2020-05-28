@@ -1,7 +1,7 @@
 Changelog for package marvelmind_nav
 
-Forthcoming
------------
+1.0.10 (2020-05-28)
+-------------------
 * upd
 * Contributors: smoker77
 
