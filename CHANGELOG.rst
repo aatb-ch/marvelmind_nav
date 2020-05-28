@@ -1,7 +1,7 @@
 Changelog for package marvelmind_nav
 
-Forthcoming
------------
+1.0.9 (2020-05-28)
+------------------
 * Merge branch 'master' of https://smoker77@bitbucket.org/marvelmind_robotics/ros_marvelmind_package.git
 * Added waypoints, quality, telemetry messages. Baudrate setup via command
   line. Relative topic names for namespaces.
