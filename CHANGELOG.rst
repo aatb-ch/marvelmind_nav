@@ -1,7 +1,7 @@
 Changelog for package marvelmind_nav
 
-Forthcoming
------------
+1.0.11 (2020-05-30)
+-------------------
 * waypoint msg added
 * telemetry msg added
 * quality msg added
