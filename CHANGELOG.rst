@@ -1,5 +1,16 @@
 Changelog for package marvelmind_nav
 
+Forthcoming
+-----------
+* waypoint msg added
+* telemetry msg added
+* quality msg added
+* License header added
+* License header added
+* License header added
+* License header added
+* Contributors: smoker77
+
 1.0.10 (2020-05-28)
 -------------------
 * upd
