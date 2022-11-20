@@ -1,5 +1,13 @@
 Changelog for package marvelmind_nav
 
+Forthcoming
+-----------
+* Realtime timestamps support
+* Merged in master (pull request #1)
+  Make sure to always return a value when exiting hedgeReceivePrepare
+* Make sure to always return a value when exiting hedgeReceivePrepare
+* Contributors: Marcelino Almeida, smoker77
+
 1.0.11 (2020-05-30)
 -------------------
 * waypoint msg added
