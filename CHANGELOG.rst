@@ -1,7 +1,7 @@
 Changelog for package marvelmind_nav
 
-Forthcoming
------------
+1.0.12 (2022-11-20)
+-------------------
 * Realtime timestamps support
 * Merged in master (pull request #1)
   Make sure to always return a value when exiting hedgeReceivePrepare
