@@ -41,6 +41,7 @@ DAMAGE.
 #include "marvelmind_nav/hedge_telemetry.h"
 #include "marvelmind_nav/hedge_quality.h"
 #include "marvelmind_nav/marvelmind_waypoint.h"
+#include "marvelmind_nav/MarvelmindUserData.h"
 extern "C" 
 {
 #include "marvelmind_nav/marvelmind_hedge.h"
@@ -59,6 +60,7 @@ extern "C"
 #define HEDGE_TELEMETRY_TOPIC_NAME "hedge_telemetry"
 #define HEDGE_QUALITY_TOPIC_NAME "hedge_quality"
 #define MARVELMIND_WAYPOINT_TOPIC_NAME "marvelmind_waypoint"
+#define MARVELMIND_USER_DATA_TOPIC_NAME "MarvelmindUserData"
 
 struct MarvelmindHedge * hedge= NULL;
 
@@ -73,6 +75,7 @@ marvelmind_nav::beacon_distance beacon_raw_distance_msg;// Raw distance message 
 marvelmind_nav::hedge_telemetry hedge_telemetry_msg;// Telemetry message for publishing to ROS topic
 marvelmind_nav::hedge_quality hedge_quality_msg;// Quality message for publishing to ROS topic
 marvelmind_nav::marvelmind_waypoint marvelmind_waypoint_msg;// Waypoint message for publishing to ROS topic
+marvelmind_nav::MarvelmindUserData marvelmind_user_data_msg;// User data message for publishing to ROS topic
 
 static sem_t *sem;
 struct timespec ts;
@@ -333,6 +336,21 @@ static bool marvelmindWaypointUpdateCheck(void)
 	return (nUpdated>0);
 }
 
+static bool marvelmindUserDataUpdateCheck(void)
+{int i;
+	
+	if (!hedge->userPayloadData.updated) 
+		return false;
+		
+	marvelmind_user_data_msg.timestamp_ms = hedge->userPayloadData.timestamp.timestamp64;
+    marvelmind_user_data_msg.data.clear();
+    for (i = 0; i < hedge->userPayloadData.dataSize; i++)
+        marvelmind_user_data_msg.data.push_back(hedge->userPayloadData.data[i]);
+		
+	hedge->userPayloadData.updated= false;
+	return true;
+}
+
 /**
  * Node for Marvelmind hedgehog binary streaming data processing
  */
@@ -365,6 +383,8 @@ int main(int argc, char **argv)
   ros::Publisher hedge_quality_publisher = n.advertise<marvelmind_nav::hedge_quality>(HEDGE_QUALITY_TOPIC_NAME, 1000);
   
   ros::Publisher marvelmind_waypoint_publisher = n.advertise<marvelmind_nav::marvelmind_waypoint>(MARVELMIND_WAYPOINT_TOPIC_NAME, 1000);
+  
+  ros::Publisher marvelmind_user_data_publisher = n.advertise<marvelmind_nav::MarvelmindUserData>(MARVELMIND_USER_DATA_TOPIC_NAME, 1000);
 
   // 200 Hz 
   ros::Rate loop_rate(200);
@@ -503,6 +523,12 @@ int main(int argc, char **argv)
 				(int) marvelmind_waypoint_msg.total_items, marvelmind_waypoint_msg.movement_type,
 				marvelmind_waypoint_msg.param1, marvelmind_waypoint_msg.param2, marvelmind_waypoint_msg.param3);
 		 marvelmind_waypoint_publisher.publish(marvelmind_waypoint_msg);
+	 }
+	 
+	if (marvelmindUserDataUpdateCheck())
+	 {
+		 ROS_INFO("User data: Timestamp: %08d", (int)marvelmind_user_data_msg.timestamp_ms);
+		 marvelmind_user_data_publisher.publish(marvelmind_user_data_msg);
 	 }
 
     ros::spinOnce();

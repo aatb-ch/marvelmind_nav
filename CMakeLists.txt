@@ -60,14 +60,14 @@ add_message_files(
   hedge_telemetry.msg
   hedge_quality.msg
   marvelmind_waypoint.msg
+  MarvelmindUserData.msg
 )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+  FILES
+  MarvelmindAPI.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -136,6 +136,10 @@ add_library(marvelmind_nav
    src/marvelmind_hedge.c
 )
 
+add_library(marvelmind_api
+   src/marvelmind_api.c
+)
+
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
@@ -147,10 +151,20 @@ src/hedge_rcv_bin.cpp
 src/marvelmind_hedge.c
 )
 
+add_executable(marvelmind_api_ros
+src/marvelmind_api_ros.cpp
+src/marvelmind_api.c
+)
+
 add_dependencies(hedge_rcv_bin marvelmind_nav_generate_messages_cpp)
 
 target_link_libraries(hedge_rcv_bin
  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(marvelmind_api_ros
+ ${catkin_LIBRARIES}
+ ${CMAKE_DL_LIBS}
 )
 
 #####################
