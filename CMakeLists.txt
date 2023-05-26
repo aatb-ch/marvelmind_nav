@@ -151,10 +151,10 @@ src/hedge_rcv_bin.cpp
 src/marvelmind_hedge.c
 )
 
-add_executable(marvelmind_api_ros
-src/marvelmind_api_ros.cpp
-src/marvelmind_api.c
-)
+#add_executable(marvelmind_api_ros
+#src/marvelmind_api_ros.cpp
+#src/marvelmind_api.c
+#)
 
 add_dependencies(hedge_rcv_bin marvelmind_nav_generate_messages_cpp)
 
@@ -162,10 +162,10 @@ target_link_libraries(hedge_rcv_bin
  ${catkin_LIBRARIES}
 )
 
-target_link_libraries(marvelmind_api_ros
- ${catkin_LIBRARIES}
- ${CMAKE_DL_LIBS}
-)
+#target_link_libraries(marvelmind_api_ros
+# ${catkin_LIBRARIES}
+# ${CMAKE_DL_LIBS}
+#)
 
 #####################
 
